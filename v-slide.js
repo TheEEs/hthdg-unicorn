@@ -1,19 +1,42 @@
 (function(){
     Vue.component("v-unicorn",{
         template:`
-            <div class='v-unicorn'>
+            <div @click='next_slide' class='v-unicorn'>
                 <slot></slot>
             </div>
         `,
         props:{
-            currentpage: 1
+            startPage: {
+                type:Number,
+                default: 1
+            }
         }
         ,
+        data:function(){
+            return {
+                number_of_slide: 0
+            }
+        },
         methods:{
             clamp:function(value,min,max){
-                if(value < min) return min;
-                else if(value > max) return max;
+                if(value < min) return max;
+                else if(value > max) return min;
                 else return value;
+            },
+            next_slide:function(){
+                this.startPage = this.clamp(this.startPage + 1,
+                1,this.number_of_slide)
+                for(child of this.$children){
+                    child.currentPage = this.startPage;
+                }
+            }
+        },
+        mounted :function(){
+            var i =0;
+            for(child of this.$children){
+                child.currentPage = this.startPage;
+                child.index = ++i;
+                this.number_of_slide ++;
             }
         }
     });
@@ -40,7 +63,9 @@
             return {
                 stylex:{
                        'background-image':`url(${this.backgroundUrl})`
-                }
+                },
+                currentPage: 0,
+                index: 0
             }
         },
         props:{
@@ -69,11 +94,7 @@
             },
             index:{
                 type:Number,
-                required:true
-            },
-            currentPage:{
-                type:Number,
-                default:0
+                default: 0
             }
         }
     })
