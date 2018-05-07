@@ -1,8 +1,6 @@
 # Sunicorn - A simple HTML slideshow library built with Vuejs.
 
 
-![Image not found](http://sv1.upsieutoc.com/2017/12/19/Untitledb8f7f14145fea299.png)
-
 > Thanks to [VueJs](https://vuejs.org) - a great JS Framework.
 
 This library uses [Animate.css](https://github.com/daneden/animate.css) for slide's show and hide animation. So make sure that you had included this library into your HTML `<head>` tag.
